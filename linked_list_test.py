@@ -132,6 +132,13 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(4, len(ll))
         self.assertEqual([1, 4, 2, 3], ll.get_list())
 
+    def test_insert_pos_is_negative(self):
+        ll = LinkedList([1, 2, 3])
+        self.assertEqual(3, len(ll))
+        ll.insert(-1, 4)
+        self.assertEqual(4, len(ll))
+        self.assertEqual([4, 1, 2, 3], ll.get_list())
+
     def test_counter_for_empty_seq(self):
         ll = LinkedList()
         res = ll.counter()
@@ -197,6 +204,14 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(2, item.data)
         self.assertEqual(2, len(ll))
 
+    def test_pop_pos_is_negative(self):
+        ll = LinkedList([1, 2, 3])
+        self.assertEqual(3, len(ll))
+        item = ll.pop(-1)
+        self.assertIsInstance(item, Node)
+        self.assertEqual(1, item.data)
+        self.assertEqual(2, len(ll))
+
     def test_contains(self):
         ll = LinkedList([1, 2, 3])
         self.assertTrue(2 in ll)
@@ -251,6 +266,14 @@ class TestLinkedList(unittest.TestCase):
     def test_is_palindrome_true_3(self):
         ll = LinkedList(['a', 'b', 'b', 'a'])
         self.assertTrue(ll.is_palindrome())
+
+    def test_is_empty_true(self):
+        ll = LinkedList()
+        self.assertTrue(ll.is_empty())
+
+    def test_is_empty_false(self):
+        ll = LinkedList([1])
+        self.assertFalse(ll.is_empty())
 
 
 if __name__ == '__main__':

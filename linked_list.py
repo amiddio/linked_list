@@ -42,6 +42,10 @@ class LinkedList:
             pvt = pvt.next
         return f"[{' -> '.join(lst)}]"
 
+    def is_empty(self):
+        """Checked if linked list is empty or not"""
+        return not bool(self.head)
+
     def get_list(self) -> list[Any]:
         """Converted linked list to list and return it"""
         return self.__convert_to_list()
@@ -74,6 +78,9 @@ class LinkedList:
         Added item to some position into linked list.
         Parameter pos: positive number or zero.
         """
+        if pos < 0:
+            pos = 0
+
         if pos == 0:
             self.append_left(data)
         elif pos > len(self) - 1:
@@ -108,6 +115,10 @@ class LinkedList:
         """
         if not self.head:
             return
+
+        if pos is not None and pos < 0:
+            pos = 0
+
         inx, res, pvt = 0, None, self.head
         if pos is None:
             while pvt and inx < len(self) - 1:
