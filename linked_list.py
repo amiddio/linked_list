@@ -1,29 +1,32 @@
+from typing import Any
 from collections import defaultdict
 
 
 class Node:
+    """Node of linked list"""
 
-    def __init__(self, data, nxt=None):
+    def __init__(self, data, nxt=None) -> None:
         self.data = data
         self.next = nxt
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.data)
 
 
 class LinkedList:
+    """Linked list class"""
 
-    def __init__(self, seq=None):
+    def __init__(self, seq=None) -> None:
         self.length = 0
         self.head = None
         if seq:
             for data in seq:
                 self.append(data)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.length
 
-    def __contains__(self, data):
+    def __contains__(self, data: Any) -> bool:
         pvt = self.head
         while pvt:
             if pvt.data == data:
@@ -31,7 +34,7 @@ class LinkedList:
             pvt = pvt.next
         return False
 
-    def __str__(self):
+    def __str__(self) -> str:
         lst = []
         pvt = self.head
         while pvt:
@@ -39,20 +42,12 @@ class LinkedList:
             pvt = pvt.next
         return f"[{' -> '.join(lst)}]"
 
-    def __convert_to_list(self) -> list:
-        lst = [None] * self.length
-        inx = 0
-        current = self.head
-        while current:
-            lst[inx] = current.data
-            inx += 1
-            current = current.next
-        return lst
-
-    def get_list(self):
+    def get_list(self) -> list[Any]:
+        """Converted linked list to list and return it"""
         return self.__convert_to_list()
 
-    def append(self, data) -> None:
+    def append(self, data: Any) -> None:
+        """Added item to the end of linked list"""
         node = Node(data)
         if self.head:
             pvt = self.head
@@ -63,7 +58,8 @@ class LinkedList:
             self.head = node
         self.length += 1
 
-    def append_left(self, data) -> None:
+    def append_left(self, data: Any) -> None:
+        """Added item to the start of linked list"""
         node = Node(data)
         if self.head:
             nxt = self.head
@@ -73,7 +69,11 @@ class LinkedList:
         else:
             self.append(data)
 
-    def insert(self, pos, data) -> None:
+    def insert(self, pos: int, data: Any) -> None:
+        """
+        Added item to some position into linked list.
+        Parameter pos: positive number or zero.
+        """
         if pos == 0:
             self.append_left(data)
         elif pos > len(self) - 1:
@@ -90,6 +90,10 @@ class LinkedList:
             self.length += 1
 
     def counter(self) -> dict:
+        """
+        Return a collection where elements are stored as dictionary keys,
+        and their counts are stored as dictionary values.
+        """
         dct = defaultdict(int)
         pvt = self.head
         while pvt:
@@ -97,7 +101,11 @@ class LinkedList:
             pvt = pvt.next
         return dct
 
-    def pop(self, pos=None) -> Node | None:
+    def pop(self, pos: int = None) -> Node | None:
+        """
+        Deleted and return item from linked list.
+        Parameter pos: positive number, zero or None.
+        """
         if not self.head:
             return
         inx, res, pvt = 0, None, self.head
@@ -120,7 +128,8 @@ class LinkedList:
         self.length -= 1
         return res
 
-    def delete(self, data) -> None:
+    def delete(self, data: Any) -> None:
+        """Deleted node from linked list by content"""
         if not self.head:
             return
         prev = ptv = self.head
@@ -139,7 +148,8 @@ class LinkedList:
             ptv = ptv.next
             inx += 1
 
-    def is_palindrome(self):
+    def is_palindrome(self) -> bool:
+        """Checked if linked list is palindrome"""
         if self.length in [0, 1]:
             return True
         stack = self.__convert_to_list()
@@ -151,6 +161,7 @@ class LinkedList:
         return True
 
     def reverse(self) -> None:
+        """Reversed linked list"""
         prev = None
         current = self.head
         while current:
@@ -159,3 +170,14 @@ class LinkedList:
             prev = current
             current = nxt
         self.head = prev
+
+    def __convert_to_list(self) -> list:
+        """Converted linked list to list"""
+        lst = [None] * self.length
+        inx = 0
+        current = self.head
+        while current:
+            lst[inx] = current.data
+            inx += 1
+            current = current.next
+        return lst
