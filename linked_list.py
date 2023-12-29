@@ -35,12 +35,15 @@ class LinkedList:
         return False
 
     def __str__(self) -> str:
-        lst = []
-        pvt = self.head
-        while pvt:
-            lst.append(str(pvt))
-            pvt = pvt.next
-        return f"[{' -> '.join(lst)}]"
+        return f"[{' -> '.join(map(str, self.__convert_to_list()))}]"
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}([{', '.join(map(str, self.__convert_to_list()))}])"
+
+    def clean(self) -> None:
+        """Clean linked list"""
+        self.head = None
+        self.length = 0
 
     def is_empty(self):
         """Checked if linked list is empty or not"""
@@ -121,11 +124,7 @@ class LinkedList:
 
         inx, res, pvt = 0, None, self.head
         if pos is None:
-            while pvt and inx < len(self) - 1:
-                pvt = pvt.next
-                inx += 1
-            res = pvt
-            pvt.next = None
+            return self.pop(len(self) - 1)
         elif pos == 0:
             res = pvt
             self.head = self.head.next

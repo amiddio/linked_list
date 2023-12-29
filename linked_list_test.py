@@ -167,12 +167,12 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(0, len(ll))
 
     def test_pop_from_more_data_seq(self):
-        ll = LinkedList([1, 2])
-        self.assertEqual(2, len(ll))
+        ll = LinkedList([1, 2, 3])
+        self.assertEqual(3, len(ll))
         item = ll.pop()
         self.assertIsInstance(item, Node)
-        self.assertEqual(2, item.data)
-        self.assertEqual(1, len(ll))
+        self.assertEqual(3, item.data)
+        self.assertEqual(2, len(ll))
 
     def test_pop_first_from_empty_seq(self):
         ll = LinkedList()
@@ -274,6 +274,13 @@ class TestLinkedList(unittest.TestCase):
     def test_is_empty_false(self):
         ll = LinkedList([1])
         self.assertFalse(ll.is_empty())
+
+    def test_clean(self):
+        ll = LinkedList([1, 2, 3])
+        self.assertEqual(3, len(ll))
+        ll.clean()
+        self.assertEqual(0, len(ll))
+        self.assertFalse(ll)
 
 
 if __name__ == '__main__':
